@@ -1,0 +1,36 @@
+import setuptools
+from os import path
+
+VERSION = '0.0.2'
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.md'), 'r') as f:
+    long_description = f.read()
+
+
+setuptools.setup(name='cognitive-service-vision-product-recognition-python-samples',
+                 author='Kuan Lu',
+                 description='A sample code repo for product recognitoin using Python for Cognitive Service for Vision.',
+                 long_description=long_description,
+                 long_description_content_type='text/markdown',
+                 url='',
+                 version=VERSION,
+                 python_requires='>=3.7',
+                 license='MIT',
+                 keywords='vision product recognition planogram compliance',
+                 packages=setuptools.find_packages(),
+                 install_requires=[
+                     'cognitive_service_vision_model_customization_python_samples',
+                 ],
+                 classifiers=[
+                     'Development Status :: 4 - Beta',
+                     'Intended Audience :: Developers',
+                     'License :: OSI Approved :: MIT License',
+                     'Programming Language :: Python :: 3.7',
+                     'Programming Language :: Python :: 3.8',
+                     'Programming Language :: Python :: 3.9',
+                     'Programming Language :: Python :: 3.10',
+                 ],
+                 )

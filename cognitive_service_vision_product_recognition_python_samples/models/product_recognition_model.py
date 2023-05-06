@@ -10,10 +10,9 @@ class ProductRecognitionStatus(enum.Enum):
 
 
 class ProductRecognition:
-    def __init__(self, name, model_name, dataset_name) -> None:
+    def __init__(self, name, model_name) -> None:
         assert name
         assert model_name
-        assert dataset_name
 
         self.name = name
         self.model_name = model_name

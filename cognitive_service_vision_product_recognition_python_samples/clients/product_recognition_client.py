@@ -6,17 +6,21 @@ from ..models import ProductRecognition, ProductRecognitionResponse, ProductReco
 
 logger = logging.getLogger(__name__)
 
+
 class ProductRecognitionClient(Client):
     def __init__(self, resource_type, resource_name: str, multi_service_endpoint, resource_key: str) -> None:
         super().__init__(resource_type, resource_name, multi_service_endpoint, resource_key)
 
-    def evaluate(self, evaluation: ProductRecognition) -> ProductRecognitionResponse:
-        json_response = self.request_put(f'/models/{evaluation.model_name}/evaluations/{evaluation.name}', json=evaluation.params)
+    def create_run(self, run: ProductRecognition, img: bytes, content_type='image/jpeg') -> ProductRecognitionResponse:
+        json_response = self.request_put(f'/productrecognition/{run.model_name}/runs/{run.name}', data=img, content_type=content_type)
         return ProductRecognitionResponse.from_response(json_response)
 
     def query_run(self, name, model_name) -> ProductRecognitionResponse:
-        json_response = self.request_get(f'/models/{model_name}/evaluations/{name}')
+        json_response = self.request_get(f'/productrecognition/{model_name}/runs/{name}')
         return ProductRecognitionResponse.from_response(json_response)
+
+    def delete_run(self, name, model_name) -> ProductRecognitionResponse:
+        self.request_delete(f'/productrecognition/{model_name}/runs/{name}')
 
     def wait_for_completion(self, name: str, model_name: str, check_wait_in_secs: int = 60) -> ProductRecognitionResponse:
         start_time = time.time()
